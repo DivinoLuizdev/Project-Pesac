@@ -1,1 +1,56 @@
- 
+ # Arquivos de usuário de depuração e build do Visual Studio
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+
+# Pacotes NuGet
+*.nupkg
+*.suo
+.vs/
+.vspscc
+*.user
+*.userossc
+*.sln.docstates
+*.vsproj.user
+
+# Restaurações de pacotes NuGet
+packages/
+*.lock.json
+project.assets.json
+
+# Diretórios de publicação/implantação
+[Pp]ublish/
+[Pp]ub/
+*.pubxml
+*.pubxml.user
+
+# Arquivos de configurações secretos
+*.json.user
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+
+# Cobertura de teste
+coverage.json
+/TestResults/
+
+# Arquivos de banco de dados
+*.mdf
+*.ldf
+*.sdf
+*.db
+
+# Arquivos temporários e de log
+*.log
+*.tmp
+*.temp
+[Tt]emp/
+
+# Arquivos gerados por IDEs
+.idea/
+.DS_Store
+
+# Arquivos de contêineres e orquestração (se não forem necessários no repositório)
+docker-compose.override.yml
+*.dockerignore
