@@ -23,7 +23,8 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // Configuração do DbContext (PostgreSQL)
-var connectionString = "Host=localhost;Port=5432;Database=usuariosdb;Username=admin;Password=admin123";
+
+var connectionString = "Host=usuarios-postgres;Port=5432;Database=usuariosdb;Username=admin;Password=admin123";
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
@@ -39,7 +40,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
         policy  =>
         {
-            policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")  
+            policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:5000")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });

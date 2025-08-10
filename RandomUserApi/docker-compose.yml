@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres
@@ -25,6 +27,21 @@ services:
       - postgres
     volumes:
       - pgadmindata:/var/lib/pgadmin
+    networks:
+      - pgnetwork
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: randomuserapi
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=usuariosdb;Username=admin;Password=admin123
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
     networks:
       - pgnetwork
 
