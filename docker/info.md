@@ -9,6 +9,10 @@
 1. Acesse o PgAdmin no navegador em:  
    [http://localhost:5050](http://localhost:5050)
 
+      ``admin@admin.com``
+      
+      `` admin123``
+
 2. Adiciona um novo servidor no PgAdmin com as seguintes configurações:
 
 - **Hostname:** postgres  
@@ -23,5 +27,3 @@
 
 **Obs:** Certifique-se que os containers do PostgreSQL e PgAdmin estejam rodando na mesma rede Docker para que o hostname `postgres` seja resolvido corretamente.
 
-admin@admin.com
-admin123
