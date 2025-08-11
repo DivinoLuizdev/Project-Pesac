@@ -54,3 +54,9 @@ coverage.json
 # Arquivos de contêineres e orquestração (se não forem necessários no repositório)
 docker-compose.override.yml
 *.dockerignore
+
+# Node / React / Frontend
+node_modules/
+dist/
+build/
+FrontSimple/node_modules/

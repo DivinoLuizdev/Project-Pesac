@@ -13,12 +13,12 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;  
+using System.Linq;
 
 namespace RandomUserApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -90,7 +90,7 @@ namespace RandomUserApi.Controllers
             _logger.LogInformation("Usuário com ID {Id} encontrado.", id);
             return Ok(user);
         }
-        
+
         // ------------------------------------
         // Seção de Criação (POST)
         // ------------------------------------
@@ -156,7 +156,7 @@ namespace RandomUserApi.Controllers
                 _logger.LogWarning("Usuário com ID {Id} não encontrado para atualização.", id);
                 return NotFound();
             }
-            
+
             _context.Entry(existingUser).CurrentValues.SetValues(updatedUser);
             _context.Users.Update(existingUser);
             await _context.SaveChangesAsync();
@@ -220,10 +220,9 @@ namespace RandomUserApi.Controllers
 
         /// <summary>
         /// Gera um relatório de usuários em formato CSV.
-        /// </summary>
-        [HttpGet("relatorio-csv")]
-        [Produces("text/csv")]
+        
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("relatorio-csv")]
         public async Task<IActionResult> GetRelatorioCsv()
         {
             _logger.LogInformation("Requisição GET api/users/relatorio-csv iniciada.");
@@ -231,22 +230,61 @@ namespace RandomUserApi.Controllers
             var usuarios = await _context.Users.ToListAsync();
 
             var csv = new StringBuilder();
-            csv.AppendLine("Id,Nome Completo,Email,Telefone,Cidade,Estado,País");
 
-            foreach (var user in usuarios)
+            // Cabeçalho com todos os campos
+            csv.AppendLine("Id,Gender,Title,FirstName,LastName,StreetNumber,StreetName,City,State,Country,Postcode,Latitude,Longitude,TimezoneOffset,TimezoneDescription,Email,Username,Password,Salt,MD5,SHA1,SHA256,DobDate,DobAge,RegisteredDate,RegisteredAge,Phone,Cell,IdName,IdValue,PictureLarge,PictureMedium,PictureThumbnail,Nationality");
+
+            foreach (var u in usuarios)
             {
-                var nomeCompleto = $"{user.Title} {user.FirstName} {user.LastName}".Trim();
-                var linha = $"{user.Id},{EscapeCsv(nomeCompleto)},{EscapeCsv(user.Email)},{EscapeCsv(user.Phone)},{EscapeCsv(user.City)},{EscapeCsv(user.State)},{EscapeCsv(user.Country)}";
-                csv.AppendLine(linha);
+                csv.AppendLine(string.Join(",", new[]
+                {
+            EscapeCsv(u.Id.ToString()),
+            EscapeCsv(u.Gender),
+            EscapeCsv(u.Title),
+            EscapeCsv(u.FirstName),
+            EscapeCsv(u.LastName),
+            EscapeCsv(u.StreetNumber.ToString()),
+            EscapeCsv(u.StreetName),
+            EscapeCsv(u.City),
+            EscapeCsv(u.State),
+            EscapeCsv(u.Country),
+            EscapeCsv(u.Postcode),
+            EscapeCsv(u.Latitude),
+            EscapeCsv(u.Longitude),
+            EscapeCsv(u.TimezoneOffset),
+            EscapeCsv(u.TimezoneDescription),
+            EscapeCsv(u.Email),
+            EscapeCsv(u.Username),
+            EscapeCsv(u.Password),
+            EscapeCsv(u.Salt),
+            EscapeCsv(u.Md5),
+            EscapeCsv(u.Sha1),
+            EscapeCsv(u.Sha256),
+            EscapeCsv(u.DobDate?.ToString("yyyy-MM-ddTHH:mm:ss")),
+            EscapeCsv(u.DobAge.ToString()),
+            EscapeCsv(u.RegisteredDate?.ToString("yyyy-MM-ddTHH:mm:ss")),
+            EscapeCsv(u.RegisteredAge.ToString()),
+            EscapeCsv(u.Phone),
+            EscapeCsv(u.Cell),
+            EscapeCsv(u.IdName),
+            EscapeCsv(u.IdValue),
+            EscapeCsv(u.PictureLarge),
+            EscapeCsv(u.PictureMedium),
+            EscapeCsv(u.PictureThumbnail),
+            EscapeCsv(u.Nationality)
+        }));
             }
 
-            var bytes = Encoding.UTF8.GetBytes(csv.ToString());
+            var csvContent = csv.ToString();
+
+            // Adiciona BOM para Excel abrir corretamente com acentos
+            var bom = Encoding.UTF8.GetPreamble();
+            var bytes = bom.Concat(Encoding.UTF8.GetBytes(csvContent)).ToArray();
 
             _logger.LogInformation("Relatório CSV gerado com {Count} usuários.", usuarios.Count);
 
             return File(bytes, "text/csv", "relatorio_usuarios.csv");
         }
-
         // ------------------------------------
         // Métodos de Suporte (Privados)
         // ------------------------------------
@@ -258,7 +296,7 @@ namespace RandomUserApi.Controllers
             {
                 container.Page(page =>
                 {
-                    page.Margin(20);
+                    page.Margin(15);
                     page.Size(PageSizes.A4);
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontSize(10).FontFamily("Helvetica"));
@@ -285,12 +323,14 @@ namespace RandomUserApi.Controllers
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
+
                                     columns.RelativeColumn(4);
                                     columns.RelativeColumn(5);
                                     columns.RelativeColumn(3);
                                     columns.RelativeColumn(3);
                                     columns.RelativeColumn(2);
                                     columns.RelativeColumn(2);
+
                                 });
 
                                 table.Header(header =>

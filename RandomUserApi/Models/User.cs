@@ -80,12 +80,12 @@ namespace RandomUserApi.Models
 
         public DateTime? DobDate { get; set; }
 
-        [Range(0, 150)]
+        
         public int? DobAge { get; set; }
 
         public DateTime? RegisteredDate { get; set; }
 
-        [Range(0, 150)]
+        
         public int? RegisteredAge { get; set; }
 
         [Phone(ErrorMessage = "Formato de telefone inválido.")]
