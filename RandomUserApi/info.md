@@ -2,7 +2,7 @@
 
 ## Passos para conectar
 
-`` docker-compose down``
+``docker-compose down``
 
 ``docker-compose up -d``
 
@@ -21,9 +21,4 @@
 - **Usuário:** admin  
 - **Senha:** admin123  
 
-3. Após salvar, o PgAdmin estará conectado ao seu banco PostgreSQL rodando no Docker.
-
----
-
-**Obs:** Certifique-se que os containers do PostgreSQL e PgAdmin estejam rodando na mesma rede Docker para que o hostname `postgres` seja resolvido corretamente.
 
