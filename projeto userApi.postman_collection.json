@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "dfbde617-2bc4-48e9-beac-baaa406e33e0",
+		"name": "projeto userApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29566108"
+	},
+	"item": [
+		{
+			"name": "/api/users paginação",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/users?pageNumber=1&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"7b9c1f45-2d8e-4a3a-bf58-1a8f45c4e987\",\r\n  \"gender\": \"female\",\r\n  \"title\": \"Ms\",\r\n  \"firstName\": \"Maria\",\r\n  \"lastName\": \"Silva\",\r\n  \"streetNumber\": 456,\r\n  \"streetName\": \"Rua das Flores\",\r\n  \"city\": \"Rio de Janeiro\",\r\n  \"state\": \"RJ\",\r\n  \"country\": \"Brazil\",\r\n  \"postcode\": \"22040-002\",\r\n  \"latitude\": \"-22.9068\",\r\n  \"longitude\": \"-43.1729\",\r\n  \"timezoneOffset\": \"-03:00\",\r\n  \"timezoneDescription\": \"Brasilia Standard Time\",\r\n  \"email\": \"maria.silva@example.com\",\r\n  \"loginUuid\": \"7b9c1f45-2d8e-4a3a-bf58-1a8f45c4e987\",\r\n  \"username\": \"marias\",\r\n  \"password\": \"SenhaForte2025!\",\r\n  \"salt\": \"salt_example_456\",\r\n  \"md5\": \"098f6bcd4621d373cade4e832627b4f6\",\r\n  \"sha1\": \"2aae6c35c94fcfb415dbe95f408b9ce91ee846ed\",\r\n  \"sha256\": \"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08\",\r\n  \"dobDate\": \"1990-05-20T10:15:00.000Z\",\r\n  \"dobAge\": 33,\r\n  \"registeredDate\": \"2018-11-15T08:30:00.000Z\",\r\n  \"registeredAge\": 5,\r\n  \"phone\": \"+5521999887766\",\r\n  \"cell\": \"+5521999776655\",\r\n  \"idName\": \"RG\",\r\n  \"idValue\": \"12.345.678-9\",\r\n  \"pictureLarge\": \"https://randomuser.me/api/portraits/women/45.jpg\",\r\n  \"pictureMedium\": \"https://randomuser.me/api/portraits/med/women/45.jpg\",\r\n  \"pictureThumbnail\": \"https://randomuser.me/api/portraits/thumb/women/45.jpg\",\r\n  \"nationality\": \"BR\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/users/153517eb-9d5c-45a1-b906-0172f7ec09a5"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:5000/api/users/b3abe4b8-6b08-490d-93ef-ebff73c8df60"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/generate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:5000/api/users/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/relatorio-csv",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/users/relatorio-csv"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/relatorio-pdf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/users/relatorio-pdf"
+			},
+			"response": []
+		}
+	]
+}
