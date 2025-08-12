@@ -119,7 +119,9 @@ const Index = () => {
     if (!selectedUser) return;
     
     try {
+      console.log("Atualizando usuário...");
       await api.updateUser(selectedUser.id, userData);
+      
       toast({
         title: "Sucesso",
         description: "Usuário atualizado com sucesso!",

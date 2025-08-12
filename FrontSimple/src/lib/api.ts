@@ -9,12 +9,30 @@ class ApiError extends Error {
   }
 }
 
-async function handleResponse<T>(response: Response): Promise<T> {
+async function handleResponse<T>(response: Response): Promise<T | null> {
   if (!response.ok) {
     throw new ApiError(`API Error: ${response.statusText}`, response.status);
   }
-  return response.json();
+
+  // Se status 204, não tem corpo, retorna null
+  if (response.status === 204) {
+    return null;
+  }
+
+  // Tenta ler o texto da resposta
+  const text = await response.text();
+
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    throw new ApiError("Falha ao interpretar JSON da resposta", response.status);
+  }
 }
+
 
 export const api = {
   // Get paginated users
@@ -51,6 +69,7 @@ export const api = {
       },
       body: JSON.stringify(userData),
     });
+    console.log(response);
     return handleResponse<User>(response);
   },
 

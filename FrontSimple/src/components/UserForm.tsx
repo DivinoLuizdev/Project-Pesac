@@ -223,7 +223,7 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
               {errors.username && <p className="text-sm text-destructive">{errors.username.message}</p>}
             </div>
 
-            {!isEditing && (
+            { 
               <div className="space-y-2">
                 <Label htmlFor="password">Senha</Label>
                 <Input
@@ -234,7 +234,7 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
                 />
                 {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
               </div>
-            )}
+            }
 
             <div className="space-y-2">
               <Label htmlFor="dobDate">Data de Nascimento</Label>
@@ -251,11 +251,11 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
               <Label htmlFor="streetNumber">Número</Label>
               <Input
                 id="streetNumber"
-                type="number"
+                 type="number"
                 {...register("streetNumber")}
                 placeholder="Número da rua"
               />
-              {errors.streetNumber && <p className="text-sm text-destructive">{errors.streetNumber.message}</p>}
+              {/* {errors.streetNumber && <p className="text-sm text-destructive">{errors.streetNumber.message}</p>} */}
             </div>
 
             <div className="space-y-2">
